@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:composite="http://java.sun.com/jsf/composite"
 >
 
 <head jsf:id="head">
@@ -13,12 +13,14 @@
 </head>
 
 <body>
-<form jsf:id="updateForm" jsf:prependId="false">
-    <input jsf:id="updateProduct" type="text" placeholder="produkt" value="#{productsBean.name}"/>
-    <input jsf:id="updateQuntity" type="text" placeholder="ilość" value="#{productsBean.quantity}"/>
-    <h:commandButton value="Akceptuj" action="#{productsBean.updateProduct(products.id)}"/>
+<form jsf:id="addingForm">
+    <input jsf:id="updateId" type="hidden" value="#{productsBean.id}"/>
+    <input jsf:id="addingProduct" type="text" placeholder="produkt" value="#{productsBean.name}"/>
+    <input jsf:id="addingQuntity" type="text" placeholder="ilość" value="#{productsBean.quantity}"/>
+    <h:commandButton value="Akceptuj" action="#{productsBean.updateProduct(productsBean.id)}"/>
 </form>
-
 </body>
+
+
 
 </html>

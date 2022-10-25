@@ -10,12 +10,13 @@ import javax.persistence.*;
 @Table(name = "PRODUCTS")
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @NamedQueries({
         @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p"),
         @NamedQuery(name = "Products.startingWith", query = "SELECT p FROM Products p WHERE p.name LIKE :likeExpression"),
-        @NamedQuery(name = "Products.find", query = "SELECT p FROM Products p WHERE p.id=:productId")
+        @NamedQuery(name = "Products.find", query = "SELECT p FROM Products p WHERE p.id=:productId"),
+        @NamedQuery(name = "Products.update", query = "UPDATE Products p SET p.name=:productName, p.quantity=:productQuantity WHERE p.id=:productId")
 })
 public class Products {
     @Id

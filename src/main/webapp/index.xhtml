@@ -27,7 +27,7 @@
 <form jsf:id="productsForm" jsf:prependId="false">
 
     <input type="text" jsf:id="customerFilter" value="#{productsBean.filter}">
-        <f:ajax delay="250" execute="@this" render="productsList" listener="#{productsBean.takeAction}" event="keyup"/>
+        <f:ajax delay="250" execute="@this" render="productsList" listener="#{productsBean.takeAction}" event="keyup"/> //https://docs.oracle.com/javaee/6/javaserverfaces/2.1/docs/vdldocs/facelets/f/ajax.html
     </input>
 
     <div jsf:id="productsList">
@@ -35,13 +35,9 @@
             <ui:repeat value="#{productsBean.allProducts}" var="p">
                 <li>#{p.id}. #{p.name}  #{p.quantity}</li>
                 <h:commandButton value="Usuń" action="#{productsBean.deleteProduct(p.id)}"/>
-<!--                                 onclick="confirm('Are you sure you want to delete this attribute?')"-->
-<!--                                 onmousedown="saveScrollPosition();"-->
-<!--                                 oncomplete="setScrollPosition();"-->
-<!--                                 reRender="table"-->
-<!--                                 immediate="true"/>-->
-                <h:commandButton id="update" value="Edytuj" execute="@this"
-                               action="#{productsBean.updateProduct(p.id)}" limitRender="true" render="productsList"/>
+
+                <h:commandButton value="Edytuj"  action="#{productsBean.preUpdateProduct(p.id)}"/>
+
                 <br></br>
                 <br></br>
             </ui:repeat>

@@ -1,19 +1,19 @@
 package io._10a.controller;
 
 
-import io._10a.ProductsBean;
 import io._10a.entity.Products;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
 public class ProductsController {
-
+    Products product;
     @PersistenceContext
     EntityManager entityManager;
 
@@ -35,11 +35,11 @@ public class ProductsController {
     }
 
     public Products findById(Long id) {
-            return entityManager.createNamedQuery("Products.find", Products.class).setParameter("productId", id).getSingleResult();
+        return entityManager.createNamedQuery("Products.find", Products.class).setParameter("productId", id).getSingleResult();
+    }
+    public void updateProduct(Products product) {
+        entityManager.merge(product);
     }
 
-    public Products updateProduct(Products product) {
-        return entityManager.merge(product);
-    }
 }
 
