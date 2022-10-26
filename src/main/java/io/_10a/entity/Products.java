@@ -29,4 +29,5 @@ public class Products {
 
     @Column(name = "QUANTITY")
     private Long quantity;
+
 }

@@ -27,7 +27,6 @@ public class ProductsController {
 
     public void addProduct(Products product) {
         entityManager.persist(product);
-
     }
 
     public void deleteProduct(Long id) {
