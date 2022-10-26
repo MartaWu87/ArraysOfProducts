@@ -36,15 +36,15 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <version>1.18.24</version>
+            <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.wildfly/wildfly-jpa-hibernate4 -->
         <dependency>
-            <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-jpa-hibernate4</artifactId>
-            <version>8.0.0.Alpha1</version>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>3.13.1</version>
         </dependency>
+
     </dependencies>
 
 </project>

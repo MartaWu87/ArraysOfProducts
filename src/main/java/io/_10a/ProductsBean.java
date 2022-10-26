@@ -84,7 +84,7 @@ public class ProductsBean implements Serializable {
     }
 
     public String preUpdateProduct(Long id) {
-        return "update?faces-redirect=true";
+        return "update?id=" + id + "&faces-redirect=true";
     }
 
     public String back() {
