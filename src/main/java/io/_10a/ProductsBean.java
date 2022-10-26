@@ -2,9 +2,12 @@ package io._10a;
 
 
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.RequestParameterMap;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.List;
 
@@ -73,17 +76,19 @@ public class ProductsBean implements Serializable {
         return "insert?faces-redirect=true";
     }
 
-    public String updateProduct(Long id) {
+
+    public String updateProduct() {
         Products product = productsController.findById(id);
-        product.setId(id);
         product.setName(name);
         product.setQuantity(quantity);
         productsController.updateProduct(product);
-        return "index?faces-redirect=true";
+        return "index.xhtml?faces-redirect=true";
 
     }
 
+
     public String preUpdateProduct(Long id) {
+
         return "update?id=" + id + "faces-redirect=true";
     }
 

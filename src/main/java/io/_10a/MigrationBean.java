@@ -45,7 +45,7 @@ public class MigrationBean {
                         .outOfOrder(true)
                         .ignoreMissingMigrations(true)
                         .dataSource(dataSource)
-                        .locations("classpath:db.Migration")
+                        .locations("classpath:db.Migration") //Pamiętaj, że pliki w locations muszę mieć dwa _ _ (podkreślniki)
 //                        .outOfOrder(true)
 //                        .ignoreMissingMigrations(true)
         );
