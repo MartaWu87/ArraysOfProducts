@@ -13,11 +13,13 @@
 </head>
 
 <body>
-<form jsf:id="updateForm" jsf:prependId="false">
-    <input jsf:id="updateId" type="number" value="#{productsBean.id}"/>
-    <input jsf:id="updateProduct" type="text" placeholder="produkt" value="#{productsBean.name}"/>
-    <input jsf:id="updateQuntity" type="text" placeholder="ilość" value="#{productsBean.quantity}"/>
-    <h:commandButton value="Akceptuj" action="#{productsBean.updateProduct()}"/>
+
+<p>Edited id: #{updateBean.editedId}</p>
+
+<form jsf:id="addingForm">
+    <input jsf:id="addingProduct" type="text" placeholder="produkt" value="#{updateBean.product.name}"/>
+    <input jsf:id="addingQuntity" type="text" placeholder="ilość" value="#{updateBean.product.quantity}"/>
+    <h:commandButton value="Akceptuj" action="#{updateBean.save()}"/>
 </form>
 </body>
 
