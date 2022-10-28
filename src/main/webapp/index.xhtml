@@ -6,7 +6,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://java.sun.com/jsf/composite"
 >
 
 <head jsf:id="head">
@@ -22,21 +22,36 @@
                    action="#{productsBean.insert}" limitRender="true" render="productsList"/>
 
 </form>
+<br></br>
+<br></br>
+<form jsf:id="allCategory" jsf:prependId="false">
+    <p>Kategorie:</p>
+    <div jsf:id="CategoryList">
+    <ul>
+        <ui:repeat value="#{categoryBean.allCategory()}" var="c">
+        #{c.category_id}. #{c.name}
+
+        </ui:repeat>
+    </ul>
+
+    <br></br>
+</div>
+</form>
 
 <p>Wpisz szukaną frazę: </p>
 <form jsf:id="productsForm" jsf:prependId="false">
 
     <input type="text" jsf:id="customerFilter" value="#{productsBean.filter}">
-        <f:ajax delay="250" execute="@this" render="productsList" listener="#{productsBean.takeAction}" event="keyup"/> //https://docs.oracle.com/javaee/6/javaserverfaces/2.1/docs/vdldocs/facelets/f/ajax.html
+        <f:ajax delay="250" execute="@this" render="productsList" listener="#{productsBean.takeAction}"
+                event="keyup"/> //https://docs.oracle.com/javaee/6/javaserverfaces/2.1/docs/vdldocs/facelets/f/ajax.html
     </input>
-
     <div jsf:id="productsList">
         <ul>
             <ui:repeat value="#{productsBean.allProducts}" var="p">
-                <li>#{p.id}. #{p.name}  #{p.quantity}</li>
-                <h:commandButton value="Usuń" action="#{productsBean.deleteProduct(p.id)}"/>
+                <li>#{p.product_id}. #{p.name}  #{p.quantity} - #{p.category.name}</li>
+                <h:commandButton value="Usuń" action="#{productsBean.deleteProduct(p.product_id)}"/>
 
-                <h:commandButton value="Edytuj"  action="#{productsBean.preUpdateProduct(p.id)}"/>
+                <h:commandButton value="Edytuj" action="#{productsBean.preUpdateProduct(p.product_id)}"/>
 
                 <br></br>
                 <br></br>

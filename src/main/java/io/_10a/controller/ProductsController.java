@@ -29,13 +29,14 @@ public class ProductsController {
         entityManager.persist(product);
     }
 
-    public void deleteProduct(Long id) {
-        entityManager.remove(findById(id));
+    public void deleteProduct(Long product_id) {
+        entityManager.remove(findById(product_id));
     }
 
-    public Products findById(Long id) {
-        return entityManager.createNamedQuery("Products.find", Products.class).setParameter("productId", id).getSingleResult();
+    public Products findById(Long product_id) {
+        return entityManager.createNamedQuery("Products.find", Products.class).setParameter("productId", product_id).getSingleResult();
     }
+
     public void updateProduct(Products product) {
         entityManager.merge(product);
     }
