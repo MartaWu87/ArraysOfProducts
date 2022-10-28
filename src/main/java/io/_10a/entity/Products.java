@@ -30,7 +30,7 @@ public class Products {
     private Long quantity;
 
     @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")//, insertable = false, updatable = false)
     private Category category;
 
 }
