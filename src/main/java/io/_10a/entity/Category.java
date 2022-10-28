@@ -25,7 +25,7 @@ public class Category {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
     //, cascade = CascadeType.ALL, fetch = FetchType.EAGER, fetch = FetchType.LAZY, )
     private List<Products> products = new ArrayList<>();
 
