@@ -2,12 +2,15 @@ package io._10a;
 
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
+import io._10a.controller.CategoryController;
 import io._10a.controller.ProductsController;
 import io._10a.entity.Category;
 import io._10a.entity.Products;
@@ -25,13 +28,13 @@ import org.slf4j.LoggerFactory;
 public class ProductsBean implements Serializable {
 
     Logger logger = LoggerFactory.getLogger(ProductsBean.class);
-    @Inject
+    @EJB
     ProductsController productsController;
 
     private Long product_id;
     private String name;
     private Long quantity;
-    private List<Products> products;
+    private List<Products> productsList;
 
     private Category category;
     private String filter;
@@ -39,11 +42,12 @@ public class ProductsBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        products = productsController.allProducts();
+//        productsList = productsController.allProducts();
+        productsList = sortByCategory(1L);
     }
 
     public List<Products> getAllProducts() {
-        return products;
+        return productsList;
     }
 
     public String getFilter() {
@@ -55,16 +59,20 @@ public class ProductsBean implements Serializable {
     }
 
     public void takeAction() {
-        this.products = productsController.findLike(filter);
+        this.productsList = productsController.findLike(filter);
     }
+
+//    public void searchByCategory() {
+//        this.productsList = productsController.sortByCategory(category);
+//    }
 
     public String addProduct() {
         Products product = new Products();
         product.setName(name);
         product.setQuantity(quantity);
         product.setCategory(category);
-        productsController.addProduct(product);
-        return "index?faces-redirect=true";
+        productsController.addProduct(product, category);
+         return "index?faces-redirect=true";
     }
 
     public String deleteProduct(Long product_id) {
@@ -83,4 +91,10 @@ public class ProductsBean implements Serializable {
     public String back() {
         return "index?faces-redirect=true";
     }
+
+        public List<Products> sortByCategory(Long category_id) {
+        return productsController.sortByCategory(category_id);
+//        return "index?faces-redirect=true";
+    }
+
 }

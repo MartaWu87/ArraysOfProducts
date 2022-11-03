@@ -1,19 +1,25 @@
 package io._10a.controller;
 
 
+import io._10a.entity.Category;
+import io._10a.entity.Category_;
 import io._10a.entity.Products;
+import io._10a.entity.Products_;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.List;
+
+import static io._10a.entity.Category_.category_id;
+
 
 @Stateless
 public class ProductsController {
-    Products product;
+    Products products;
+    Category category;
     @PersistenceContext
     EntityManager entityManager;
 
@@ -25,8 +31,8 @@ public class ProductsController {
         return entityManager.createNamedQuery("Products.startingWith", Products.class).setParameter("likeExpression", prefix + "%").getResultList();
     }
 
-    public void addProduct(Products product) {
-        entityManager.persist(product);
+    public void addProduct(Products products, Category category) {
+        entityManager.merge(products);
     }
 
     public void deleteProduct(Long product_id) {
@@ -41,5 +47,21 @@ public class ProductsController {
         entityManager.merge(product);
     }
 
+
+    public List<Products> sortByCategory(Long category_id) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Products> criteriaQuery = criteriaBuilder.createQuery(Products.class);
+        Root<Products> products = criteriaQuery.from(Products.class);
+        criteriaQuery.select(products);
+        Predicate predicate = criteriaBuilder.equal(products.get(Products_.category), category_id);
+        criteriaQuery.where(predicate);
+        TypedQuery<Products> query = entityManager.createQuery(criteriaQuery);
+        List<Products> productsList = query.getResultList();
+        return productsList;
+//        products.fetch(Products_.category, JoinType.LEFT);
+//        Join<Products, Category> joinQuery = products.join(Products_.category);
+//        return entityManager.createQuery(criteriaQuery.select(products).where(criteriaBuilder.in(joinQuery.get(Category_.category_id), category_id )).getResultList();
+//    }
+    }
 }
 

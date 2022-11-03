@@ -16,9 +16,10 @@
 
 <p>Edited id: #{updateBean.editedId}</p>
 
-<form jsf:id="addingForm">
-    <input jsf:id="addingProduct" type="text" placeholder="produkt" value="#{updateBean.product.name}"/>
-    <input jsf:id="addingQuntity" type="text" placeholder="ilość" value="#{updateBean.product.quantity}"/>
+<form jsf:id="updateForm">
+    <input jsf:id="updateProduct" type="text" placeholder="produkt" value="#{updateBean.product.name}"/>
+    <input jsf:id="updateQuntity" type="text" placeholder="ilość" value="#{updateBean.product.quantity}"/>
+    <input jsf:id="updateCategory" type="text" placeholder="#{updateBean.product.category}"/>
     <h:commandButton value="Akceptuj" action="#{updateBean.save()}"/>
 </form>
 </body>

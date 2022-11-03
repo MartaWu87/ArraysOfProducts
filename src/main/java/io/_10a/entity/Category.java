@@ -1,5 +1,6 @@
 package io._10a.entity;
 
+import io._10a.controller.CategoryController;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+@NamedQueries({
+        @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
+        @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.category_id=:categoryId"),
+        @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name=:name")
+})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +30,12 @@ public class Category {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
-    //, cascade = CascadeType.ALL, fetch = FetchType.EAGER, fetch = FetchType.LAZY, )
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)  //, cascade = CascadeType.ALL, fetch = FetchType.EAGER, fetch = FetchType.LAZY, )
     private List<Products> products = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return name;
+    }
 
 }

@@ -1,6 +1,8 @@
 package io._10a;
 
+import io._10a.controller.CategoryController;
 import io._10a.controller.ProductsController;
+import io._10a.entity.Category;
 import io._10a.entity.Products;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,11 +32,16 @@ public class UpdateBean implements Serializable {
     @Param(name = "id")
     private Long editedId;
 
+//    @Inject
+//    @Param(name = "category_id")
+//    private Long categoryId;
+//
+//    private Category category;
     private Products product;
 
     @PostConstruct
     public void init() {
-        logger.info("Passed product id: {}", editedId);
+//        logger.info("Passed product id: {}", editedId);
         product = productsController.findById(editedId);
     }
 
@@ -42,4 +49,5 @@ public class UpdateBean implements Serializable {
         productsController.updateProduct(product);
         return "/index?faces-redirect=true";
     }
+
 }

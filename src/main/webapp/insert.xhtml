@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
 
 <head jsf:id="head">
@@ -15,11 +16,20 @@
 
 <body>
 <form jsf:id="addingForm" jsf:prependId="false">
-          <input jsf:id="addingProduct" type="text" placeholder="produkt" value="#{productsBean.name}"/>
-        <input jsf:id="addingQuntity" type="text" placeholder="ilość" value="#{productsBean.quantity}"/>
-        <input jsf:id="addingCategory" type="text" placeholder="kategoria" value="#{productsBean.category}">
-        </input>
-          <h:commandButton value="Dodaj" action="#{productsBean.addProduct}"/>
+    <input jsf:id="addingProduct" type="text" placeholder="produkt" value="#{productsBean.name}"/>
+    <input jsf:id="addingQuntity" type="text" placeholder="ilość" value="#{productsBean.quantity}"/>
+
+    <h:selectOneListbox id="categoryList" size="5"
+                        value="#{productsBean.category}"
+                        required="true" requiredMessage="wybierz kategorię">
+        <c:forEach items="#{categoryBean.allCategory()}" var="c">
+            <f:selectItem itemLabel="#{c.category_id}. #{c.name}" itemValue="#{c.category_id}"/>
+        </c:forEach>
+
+    </h:selectOneListbox>
+
+
+    <h:commandButton id="addproduct" value="Dodaj" action="#{productsBean.addProduct}"/>
 </form>
 
 </body>

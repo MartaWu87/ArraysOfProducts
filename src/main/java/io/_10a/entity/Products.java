@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.lang.reflect.Type;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -16,7 +17,8 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p JOIN FETCH p.category"),
         @NamedQuery(name = "Products.startingWith", query = "SELECT p FROM Products p WHERE p.name LIKE :likeExpression"),
-        @NamedQuery(name = "Products.find", query = "SELECT p FROM Products p WHERE p.product_id=:productId"),
+        @NamedQuery(name = "Products.find", query = "SELECT p FROM Products p JOIN FETCH p.category WHERE p.product_id=:productId"),
+        @NamedQuery(name = "Products.findByCategory", query = "SELECT p FROM Products p JOIN FETCH p.category WHERE p.category in :category_id"),
 })
 public class Products {
     @Id
@@ -29,8 +31,12 @@ public class Products {
     @Column(name = "QUANTITY")
     private Long quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")//, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID", nullable = false)//, insertable = false, updatable = false)
     private Category category;
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
 }

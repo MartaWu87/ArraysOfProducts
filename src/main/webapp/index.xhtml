@@ -27,15 +27,19 @@
 <form jsf:id="allCategory" jsf:prependId="false">
     <p>Kategorie:</p>
     <div jsf:id="CategoryList">
-    <ul>
-        <ui:repeat value="#{categoryBean.allCategory()}" var="c">
-        #{c.category_id}. #{c.name}
+        <ul>
 
-        </ui:repeat>
-    </ul>
+            <ui:repeat value="#{categoryBean.allCategory()}" var="c">
+                <h:selectOneRadio>
+                <f:selectItem itemValue="#{c.category_id}" itemLabel="#{c.name}"/>
+                    <f:ajax render="CategoryList" listener="#{productsBean.sortByCategory()}" event="select"/>
+                </h:selectOneRadio>
+            </ui:repeat>
 
-    <br></br>
-</div>
+        </ul>
+
+        <br></br>
+    </div>
 </form>
 
 <p>Wpisz szukaną frazę: </p>
