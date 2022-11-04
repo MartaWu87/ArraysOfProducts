@@ -27,17 +27,14 @@
 <form jsf:id="allCategory" jsf:prependId="false">
     <p>Kategorie:</p>
     <div jsf:id="CategoryList">
-        <ul>
 
-            <ui:repeat value="#{categoryBean.allCategory()}" var="c">
-                <h:selectOneRadio>
-                <f:selectItem itemValue="#{c.category_id}" itemLabel="#{c.name}"/>
-                    <f:ajax render="CategoryList" listener="#{productsBean.sortByCategory()}" event="select"/>
-                </h:selectOneRadio>
-            </ui:repeat>
-
-        </ul>
-
+        <h:selectOneRadio value="#{categoryBean.category_id}">
+            <f:selectItems value="#{categoryBean.allCategory()}" var="c"
+                           itemValue="#{c.category_id}" itemLabel="#{c.name}"/>
+            <f:ajax render="productsList" listener="#{productsBean.sortByCategory(categoryBean.category_id)}"
+                    event="change"/>
+        </h:selectOneRadio>
+        <br></br>
         <br></br>
     </div>
 </form>
@@ -51,7 +48,7 @@
     </input>
     <div jsf:id="productsList">
         <ul>
-            <ui:repeat value="#{productsBean.allProducts}" var="p">
+            <ui:repeat value="#{productsBean.productsList}" var="p">
                 <li>#{p.product_id}. #{p.name}  #{p.quantity} - #{p.category.name}</li>
                 <h:commandButton value="Usuń" action="#{productsBean.deleteProduct(p.product_id)}"/>
 

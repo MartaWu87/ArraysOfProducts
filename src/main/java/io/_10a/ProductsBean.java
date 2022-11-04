@@ -42,12 +42,7 @@ public class ProductsBean implements Serializable {
 
     @PostConstruct
     public void init() {
-//        productsList = productsController.allProducts();
-        productsList = sortByCategory(1L);
-    }
-
-    public List<Products> getAllProducts() {
-        return productsList;
+        productsList = productsController.allProducts();
     }
 
     public String getFilter() {
@@ -62,17 +57,13 @@ public class ProductsBean implements Serializable {
         this.productsList = productsController.findLike(filter);
     }
 
-//    public void searchByCategory() {
-//        this.productsList = productsController.sortByCategory(category);
-//    }
-
     public String addProduct() {
         Products product = new Products();
         product.setName(name);
         product.setQuantity(quantity);
         product.setCategory(category);
         productsController.addProduct(product, category);
-         return "index?faces-redirect=true";
+        return "index?faces-redirect=true";
     }
 
     public String deleteProduct(Long product_id) {
@@ -92,9 +83,8 @@ public class ProductsBean implements Serializable {
         return "index?faces-redirect=true";
     }
 
-        public List<Products> sortByCategory(Long category_id) {
-        return productsController.sortByCategory(category_id);
-//        return "index?faces-redirect=true";
+    public void sortByCategory(Long category_id) {
+        this.productsList = productsController.sortByCategory(category_id);
     }
 
 }

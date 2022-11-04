@@ -52,6 +52,7 @@ public class ProductsController {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Products> criteriaQuery = criteriaBuilder.createQuery(Products.class);
         Root<Products> products = criteriaQuery.from(Products.class);
+        products.fetch(Products_.category);
         criteriaQuery.select(products);
         Predicate predicate = criteriaBuilder.equal(products.get(Products_.category), category_id);
         criteriaQuery.where(predicate);
